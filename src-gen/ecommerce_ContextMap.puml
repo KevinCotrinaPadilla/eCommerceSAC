@@ -1,0 +1,28 @@
+@startuml
+
+skinparam componentStyle uml2
+
+component [GestionOrdenesContext]
+component [GestionEnviosContext]
+component [GestionClientesContext]
+component [GestionPagosContext]
+component [GestionsAutorizacionAutenticacionContext]
+component [CatalogoProductosContext]
+
+[GestionClientesContext]<-->[GestionEnviosContext] : Partnership
+
+[GestionOrdenesContext]<-->[GestionClientesContext] : Partnership
+
+[GestionOrdenesContext]<-->[GestionPagosContext] : Partnership
+
+interface "Upstream-Downstream" as GestionClientesContext_to_GestionsAutorizacionAutenticacionContext
+[GestionsAutorizacionAutenticacionContext] --> GestionClientesContext_to_GestionsAutorizacionAutenticacionContext : PUBLISHED_LANGUAGE
+GestionClientesContext_to_GestionsAutorizacionAutenticacionContext <.. [GestionClientesContext] : use as CONFORMIST
+
+interface "Upstream-Downstream" as GestionOrdenesContext_to_CatalogoProductosContext
+[CatalogoProductosContext] --> GestionOrdenesContext_to_CatalogoProductosContext : OPEN_HOST_SERVICE
+GestionOrdenesContext_to_CatalogoProductosContext <.. [GestionOrdenesContext] : consume
+
+
+
+@enduml
